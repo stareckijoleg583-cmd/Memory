@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0d18">
+
+  <meta name="description"
+        content="Memory+ — ігри для тренування пам'яті, уваги та запам'ятовування.">
+
+  <title>Memory+ — тренуй свою пам'ять</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
+
+  <header class="topbar">
+    <a href="#" class="brand" id="homeLink" aria-label="Memory+ — головна">
+      <span class="brand-icon">M<span>+</span></span>
+      <span class="brand-name">Memory<span>+</span></span>
+    </a>
+
+    <nav class="header-nav" aria-label="Головна навігація">
+      <a href="#modes">Тренування</a>
+      <a href="#about">Про гру</a>
+    </nav>
+
+    <button
+      class="icon-button"
+      id="settingsBtn"
+      aria-label="Відкрити налаштування"
+      title="Налаштування"
+    >⚙</button>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="status-label">
+          <span class="status-dot"></span>
+          ТВОЯ ЩОДЕННА ТРЕНУВАЛЬНА ЗОНА
+        </div>
+
+        <h1>
+          Пам'ятай більше.<br>
+          <span>Досягай більшого.</span>
+        </h1>
+
+        <p class="hero-description">
+          Тренуй пам'ять через гру. Відкривай нові режими,
+          перевіряй свої можливості та встановлюй власні рекорди.
+        </p>
+
+        <div class="hero-actions">
+          <button class="button button-primary" id="startBtn">
+            Почати тренування
+            <span aria-hidden="true">↗</span>
+          </button>
+
+          <a href="#modes" class="button button-secondary">
+            Обрати режим
+          </a>
+        </div>
+
+        <div class="hero-features">
+          <span>✦ 6 режимів</span>
+          <span>◷ Короткі раунди</span>
+          <span>⌘ Для різного віку</span>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-label="Ілюстрація гри">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+
+        <div class="visual-card visual-card-top">
+          <span class="mini-icon">✦</span>
+          <div>
+            <strong>Тренуйся щодня</strong>
+            <small>Крок за кроком</small>
+          </div>
+        </div>
+
+        <div class="brain-orb">
+          <div class="brain-glow"></div>
+          <span class="brain-emoji">🧠</span>
+          <span class="orb-spark spark-one">✦</span>
+          <span class="orb-spark spark-two">✧</span>
+          <span class="orb-spark spark-three">·</span>
+        </div>
+
+        <div class="visual-card visual-card-bottom">
+          <span class="mini-icon purple-icon">↗</span>
+          <div>
+            <strong>Твій прогрес</strong>
+            <small>Починається тут</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="preferences" aria-label="Налаштування тренування">
+      <div class="preference-heading">
+        <span class="section-kicker">ПЕРСОНАЛІЗАЦІЯ</span>
+        <span class="preference-note">Налаштуй гру під себе</span>
+      </div>
+
+      <div class="preference-fields">
+        <div class="field">
+          <label for="age">Твоя вікова група</label>
+
+          <select id="age">
+            <option value="child">6–9 років</option>
+            <option value="teen" selected>10–17 років</option>
+            <option value="adult">18–59 років</option>
+            <option value="senior">60+ років</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="difficulty">Рівень складності</label>
+
+          <select id="difficulty">
+            <option value="easy">Легкий</option>
+            <option value="normal" selected>Середній</option>
+            <option value="hard">Складний</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="modes-section" id="modes">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">ЗНАЙДИ СВІЙ ВИКЛИК</span>
+          <h2>Обери тренування<span class="accent">.</span></h2>
+          <p>Різні завдання — різні способи тренувати пам'ять.</p>
+        </div>
+
+        <span class="mode-counter">01 / 06</span>
+      </div>
+
+      <div class="mode-grid">
+
+        <button class="mode-card" data-mode="pairs">
+          <div class="card-top">
+            <span class="mode-icon icon-violet">▦</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <span class="mode-number">01 — ВІЗУАЛЬНА ПАМ'ЯТЬ</span>
+          <strong>Знайди пари</strong>
+          <span class="mode-description">
+            Перевертай картки та знаходь однакові зображення.
+          </span>
+          <span class="card-bottom">
+            <span>Логіка та пам'ять</span>
+            <span>→</span>
+          </span>
+        </button>
+
+        <button class="mode-card" data-mode="numbers">
+          <div class="card-top">
+            <span class="mode-icon icon-blue">123</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <span class="mode-number">02 — ЧИСЛА</span>
+          <strong>Числова пам'ять</strong>
+          <span class="mode-description">
+            Запам'ятовуй числа та відтворюй їх у правильному порядку.
+          </span>
+          <span class="card-bottom">
+            <span>Послідовності</span>
+            <span>→</span>
+          </span>
+        </button>
+
+        <button class="mode-card" data-mode="spatial">
+          <div class="card-top">
+            <span class="mode-icon icon-green">▦</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <span class="mode-number">03 — ПРОСТІР</span>
+          <strong>Запам'ятай клітинки</strong>
+          <span class="mode-description">
+            Стеж за підсвіченими клітинками та повторюй їхні позиції.
+          </span>
+          <span class="card-bottom">
+            <span>Просторова пам'ять</span>
+            <span>→</span>
+          </span>
+        </button>
+
+        <button class="mode-card" data-mode="words">
+          <div class="card-top">
+            <span class="mode-icon icon-orange">Aa</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <span class="mode-number">04 — СЛОВА</span>
+          <strong>Згадай слова</strong>
+          <span class="mode-description">
+            Читай, запам'ятовуй і пригадуй слова після паузи.
+          </span>
+          <span class="card-bottom">
+            <span>Словесна пам'ять</span>
+            <span>→</span>
+          </span>
+        </button>
+
+        <button class="mode-card" data-mode="sequence">
+          <div class="card-top">
+            <span class="mode-icon icon-pink">◉</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <span class="mode-number">05 — ПОСЛІДОВНІСТЬ</span>
+          <strong>Повтори сигнали</strong>
+          <span class="mode-description">
+            Запам'ятовуй кольори та повторюй послідовність натискань.
+          </span>
+          <span class="card-bottom">
+            <span>Увага та порядок</span>
+            <span>→</span>
+          </span>
+        </button>
+
+        <button class="mode-card" data-mode="faces">
+          <div class="card-top">
+            <span class="mode-icon icon-yellow">☺</span>
+            <span class="card-arrow">↗</span>
+          </div>
+          <span class="mode-number">06 — ОБРАЗИ</span>
+          <strong>Пам'ять на обличчя</strong>
+          <span class="mode-description">
+            Запам'ятовуй персонажів, їхні ознаки та деталі.
+          </span>
+          <span class="card-bottom">
+            <span>Візуальні деталі</span>
+            <span>→</span>
+          </span>
+        </button>
+
+      </div>
+    </section>
+
+    <section class="about-section" id="about">
+      <div class="about-icon">✦</div>
+      <div>
+        <span class="section-kicker">НАША МЕТА</span>
+        <h2>Кожен раунд — новий виклик.</h2>
+        <p>
+          Memory+ — це набір інтерактивних ігор для практики
+          запам'ятовування, уваги та пригадування. Обирай комфортний
+          рівень, грай у власному темпі та порівнюй свої результати.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <a href="#" class="footer-brand">Memory<span>+</span></a>
+      <span>Тренуйся у власному темпі.</span>
+      <span>© <span id="year"></span> Memory+</span>
+    </footer>
+  </main>
+
+  <!-- Вікно вибраного режиму -->
+  <div class="modal-backdrop hidden" id="modeModal">
+    <section
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+      <button class="modal-close" id="closeModal" aria-label="Закрити">
+        ×
+      </button>
+
+      <span class="modal-symbol" id="modalSymbol">✦</span>
+      <span class="section-kicker">ОБРАНИЙ РЕЖИМ</span>
+
+      <h2 id="modalTitle">Тренування</h2>
+      <p id="modalDescription"></p>
+
+      <div class="modal-details">
+        <div>
+          <span>Вік</span>
+          <strong id="modalAge">10–17 років</strong>
+        </div>
+        <div>
+          <span>Складність</span>
+          <strong id="modalDifficulty">Середня</strong>
+        </div>
+      </div>
+
+      <p class="modal-notice" id="modalNotice">
+        Цей режим буде реалізовано в наступних етапах розробки.
+      </p>
+
+      <button class="button button-primary full-width" id="modalStart">
+        Зрозуміло
+      </button>
+    </section>
+  </div>
+
+  <!-- Налаштування -->
+  <div class="modal-backdrop hidden" id="settingsModal">
+    <section
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="settingsTitle"
+    >
+      <button class="modal-close" id="closeSettings" aria-label="Закрити">
+        ×
+      </button>
+
+      <span class="section-kicker">ПЕРСОНАЛІЗАЦІЯ</span>
+      <h2 id="settingsTitle">Налаштування</h2>
+      <p>Обери параметри тренування на головному екрані.</p>
+
+      <button class="button button-primary full-width" id="settingsDone">
+        Готово
+      </button>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
