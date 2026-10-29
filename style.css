@@ -964,6 +964,1047 @@ select:focus-visible {
   }
 }
 
+/* ==========================================================================
+   MEMORY+ | ДЕНЬ 2 — ГРА «ЗНАЙДИ ЧИСЛА / ПАРИ»
+   ========================================================================== */
+
+.game-section {
+  padding: 30px 0 60px;
+  animation: fade-in 0.3s ease-out;
+}
+
+.game-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  backdrop-filter: blur(12px);
+}
+
+.game-title-group {
+  text-align: center;
+}
+
+.game-title-group .section-kicker {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.game-title-group h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.game-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Панель інструментів та HUD */
+
+.game-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.theme-tabs {
+  display: inline-flex;
+  gap: 6px;
+  padding: 5px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.theme-tab {
+  padding: 8px 14px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-tab:hover {
+  color: var(--text);
+}
+
+.theme-tab.active {
+  background: linear-gradient(135deg, var(--accent-strong), #6366f1);
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.35);
+}
+
+.game-stats-hud {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.hud-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.hud-value {
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Сітка карток */
+
+.cards-grid-wrapper {
+  display: flex;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Картка */
+
+.memory-card {
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  perspective: 1000px;
+  position: relative;
+  outline: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+}
+
+.memory-card.flipped .card-inner,
+.memory-card.matched .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+/* Зворотний бік картки (прихована) */
+
+.card-back {
+  background: linear-gradient(145deg, #181d36 0%, #101326 100%);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.card-logo {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.card-sparkle {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 10px;
+  color: var(--accent);
+  opacity: 0.4;
+}
+
+.memory-card:hover:not(.flipped):not(.matched) .card-back {
+  border-color: #a78bfa77;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(139, 92, 246, 0.25);
+}
+
+.memory-card:focus-visible .card-back {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px #8b5cf666;
+}
+
+/* Лицьовий бік картки (відкрита) */
+
+.card-front {
+  background: linear-gradient(145deg, #222744 0%, #171b30 100%);
+  border: 1px solid #8b5cf666;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transform: rotateY(180deg);
+  color: #ffffff;
+}
+
+.card-value {
+  font-size: clamp(22px, 5vw, 36px);
+  font-weight: 850;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Збіг карток */
+
+.memory-card.matched .card-front {
+  background: linear-gradient(145deg, #10382b 0%, #0c261e 100%);
+  border-color: #10b981cc;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.45);
+  animation: matchPulse 0.45s ease-out;
+}
+
+.memory-card.matched .card-value {
+  color: #34d399;
+}
+
+/* Помилка (неспівпадіння) */
+
+.memory-card.mismatch .card-front {
+  background: linear-gradient(145deg, #3d1b28 0%, #26111a 100%);
+  border-color: #f43f5ecc;
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.35);
+}
+
+.memory-card.mismatch .card-inner {
+  animation: shakeMismatch 0.4s ease-in-out;
+}
+
+@keyframes matchPulse {
+  0% { transform: rotateY(180deg) scale(0.92); }
+  50% { transform: rotateY(180deg) scale(1.08); }
+  100% { transform: rotateY(180deg) scale(1); }
+}
+
+@keyframes shakeMismatch {
+  0%, 100% { transform: rotateY(180deg) translateX(0); }
+  25% { transform: rotateY(180deg) translateX(-6px); }
+  75% { transform: rotateY(180deg) translateX(6px); }
+}
+
+/* Модальне вікно перемоги */
+
+.victory-modal {
+  text-align: center;
+  max-width: 440px;
+}
+
+.victory-icon-orb {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  display: grid;
+  place-items: center;
+  font-size: 36px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.35);
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.3) rotate(-20deg); opacity: 0; }
+  to { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.victory-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 22px 0 24px;
+}
+
+.vstat-card {
+  padding: 12px;
+  background: #0f1222;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.vstat-label {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.vstat-value {
+  display: block;
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   MEMORY+ | ДЕНЬ 3 — РЕЖИМ «ЧИСЛОВА ПАМ'ЯТЬ (ПОСЛІДОВНОСТІ)»
+   ========================================================================== */
+
+.numseq-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.numseq-arena {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.numseq-card-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 32px 28px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  animation: fade-in 0.25s ease-out;
+}
+
+.numseq-kicker {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.numseq-instruction {
+  margin: 0 0 24px;
+  font-size: clamp(16px, 4vw, 20px);
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Смуга відображення чисел (Фаза 1) */
+
+.numseq-display-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 32px 0 36px;
+  flex-wrap: wrap;
+  min-height: 90px;
+}
+
+.numseq-digit-badge {
+  display: inline-grid;
+  place-items: center;
+  width: clamp(52px, 12vw, 76px);
+  height: clamp(64px, 14vw, 92px);
+  background: linear-gradient(145deg, #231d47 0%, #161530 100%);
+  border: 2px solid #8b5cf6aa;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.35);
+  font-size: clamp(32px, 7vw, 48px);
+  font-weight: 900;
+  color: #ffffff;
+  animation: numPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes numPop {
+  from {
+    transform: scale(0.4) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Прогрес-бар таймера показу */
+
+.numseq-progress-wrapper {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.numseq-progress-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #ec4899);
+  border-radius: 99px;
+  transition: width 0.05s linear;
+}
+
+.numseq-skip-row {
+  display: flex;
+  justify-content: center;
+}
+
+/* Слоти для введення (Фаза 2) */
+
+.numseq-slots-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0 28px;
+  flex-wrap: wrap;
+  min-height: 64px;
+}
+
+.numseq-slot {
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 10vw, 60px);
+  height: clamp(52px, 12vw, 72px);
+  background: #0d1020;
+  border: 2px dashed var(--border);
+  border-radius: 14px;
+  font-size: clamp(26px, 6vw, 38px);
+  font-weight: 800;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.numseq-slot.active {
+  border-style: solid;
+  border-color: var(--accent);
+  box-shadow: 0 0 18px rgba(139, 92, 246, 0.4);
+  animation: slotPulse 1s infinite alternate;
+}
+
+.numseq-slot.filled {
+  border-style: solid;
+  border-color: #8b5cf699;
+  background: #1b1938;
+}
+
+.numseq-slot.correct {
+  border-color: #10b981;
+  background: #0f2c22;
+  color: #34d399;
+}
+
+.numseq-slot.wrong {
+  border-color: #f43f5e;
+  background: #38121f;
+  color: #fb7185;
+}
+
+@keyframes slotPulse {
+  from { box-shadow: 0 0 8px rgba(139, 92, 246, 0.2); }
+  to { box-shadow: 0 0 22px rgba(139, 92, 246, 0.6); }
+}
+
+.numseq-hidden-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+/* Віртуальна клавіатура */
+
+.numseq-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 320px;
+  margin: 0 auto 20px;
+}
+
+.keypad-btn {
+  min-height: 54px;
+  border: 1px solid var(--border);
+  background: linear-gradient(145deg, #181d36, #121528);
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 750;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.keypad-btn:hover {
+  background: #232849;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.keypad-btn:active {
+  transform: translateY(1px);
+  background: #1a1e36;
+}
+
+.keypad-backspace {
+  color: #fca5a5;
+  font-size: 20px;
+}
+
+.keypad-submit {
+  color: #6ee7b7;
+  font-size: 22px;
+  background: linear-gradient(145deg, #10382b, #0c261e);
+  border-color: #10b98166;
+}
+
+.keypad-submit:hover {
+  border-color: #10b981;
+}
+
+.numseq-action-row {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* Фаза 3: Зворотний зв'язок / Результат */
+
+.feedback-badge {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  font-size: 32px;
+  font-weight: 900;
+  color: white;
+}
+
+.feedback-badge.success {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 8px 30px rgba(16, 185, 129, 0.35);
+}
+
+.feedback-badge.error {
+  background: linear-gradient(135deg, #f43f5e, #e11d48);
+  box-shadow: 0 8px 30px rgba(244, 63, 94, 0.35);
+}
+
+.numseq-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 24px 0 28px;
+  background: #0d0f1e;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+
+.comp-col {
+  text-align: center;
+}
+
+.comp-label {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.comp-digits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.comp-chip {
+  display: inline-grid;
+  place-items: center;
+  min-width: 28px;
+  height: 36px;
+  padding: 0 6px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  background: #1e223c;
+}
+
+.comp-chip.match {
+  background: #0f3d2f;
+  color: #34d399;
+  border: 1px solid #10b98166;
+}
+
+.comp-chip.diff {
+  background: #441624;
+  color: #f87171;
+  border: 1px solid #f43f5e66;
+}
+
+/* ==========================================================================
+   РЕЖИМ 03: ПРОСТОРОВА ПАМ'ЯТЬ (ЗАПАМ'ЯТАЙ КЛІТИНКИ) // ДЕНЬ 4
+   ========================================================================== */
+
+.spatial-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.spatial-arena {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.spatial-board-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 32px 28px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  animation: fade-in 0.25s ease-out;
+}
+
+.spatial-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.spatial-kicker {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #10b981;
+  text-transform: uppercase;
+}
+
+.spatial-recall-counter {
+  font-size: 13px;
+  font-weight: 600;
+  color: #cbd5e1;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 4px 12px;
+  border-radius: 99px;
+}
+
+.spatial-recall-counter strong {
+  color: #34d399;
+  font-weight: 800;
+}
+
+.spatial-instruction {
+  margin: 0 0 20px;
+  font-size: clamp(16px, 4vw, 20px);
+  font-weight: 700;
+  color: var(--text);
+  min-height: 28px;
+}
+
+/* Прогрес-бар таймера показу */
+.spatial-progress-wrapper {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.spatial-progress-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+  border-radius: 99px;
+  transition: width 0.05s linear;
+}
+
+/* Ігрова сітка клітинок */
+.spatial-grid-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0 24px;
+}
+
+.spatial-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-dim, 3), 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 420px;
+  padding: 12px;
+  background: rgba(10, 13, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: inset 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.spatial-cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(145deg, #171b30, #101324);
+  border: 2px solid rgba(139, 92, 246, 0.18);
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(18px, 4vw, 26px);
+  font-weight: 900;
+  color: transparent;
+  user-select: none;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.spatial-cell:not(.locked):hover {
+  transform: translateY(-3px) scale(1.03);
+  border-color: #34d399;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+  background: linear-gradient(145deg, #1e243d, #14182e);
+}
+
+.spatial-cell:not(.locked):active {
+  transform: scale(0.97);
+}
+
+.spatial-cell.locked {
+  cursor: default;
+}
+
+/* Стан підсвічування (Показ) */
+.spatial-cell.highlighted {
+  background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  border-color: #67e8f9;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.4);
+  transform: scale(1.04);
+  animation: cellPulse 1.2s infinite alternate ease-in-out;
+}
+
+@keyframes cellPulse {
+  from {
+    box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+    transform: scale(1.02);
+  }
+  to {
+    box-shadow: 0 0 32px rgba(6, 182, 212, 0.75);
+    transform: scale(1.05);
+  }
+}
+
+/* Стан правильного вибору */
+.spatial-cell.correct-cell {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #34d399;
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.55);
+  transform: scale(1.02);
+  animation: cellPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cellPop {
+  0% { transform: scale(0.85); }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1.02); }
+}
+
+/* Стан помилки */
+.spatial-cell.wrong-cell {
+  background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+  border-color: #fda4af;
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(244, 63, 94, 0.6);
+  animation: cellShake 0.45s ease-in-out;
+}
+
+@keyframes cellShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* Пропущена клітинка при демонстрації помилки */
+.spatial-cell.missed-cell {
+  background: rgba(245, 158, 11, 0.25);
+  border: 2px dashed #f59e0b;
+  color: #fbbf24;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+.spatial-action-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   РЕЖИМ 04: ПАМ'ЯТЬ НА СЛОВА (ЗГАДАЙ СЛОВА) // ДЕНЬ 5
+   ========================================================================== */
+
+.words-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.words-arena {
+  width: 100%;
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+.words-board-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 32px 28px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  animation: fade-in 0.25s ease-out;
+}
+
+.words-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.words-kicker {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #fb923c;
+  text-transform: uppercase;
+}
+
+.words-recall-counter {
+  font-size: 13px;
+  font-weight: 600;
+  color: #cbd5e1;
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  padding: 4px 12px;
+  border-radius: 99px;
+}
+
+.words-recall-counter strong {
+  color: #fb923c;
+  font-weight: 800;
+}
+
+.words-instruction {
+  margin: 0 0 20px;
+  font-size: clamp(16px, 4vw, 20px);
+  font-weight: 700;
+  color: var(--text);
+  min-height: 28px;
+}
+
+/* Прогрес-бар таймера показу слів */
+.words-progress-wrapper {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.words-progress-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #f97316, #eab308);
+  border-radius: 99px;
+  transition: width 0.05s linear;
+}
+
+/* Фаза 1: Картки для запам'ятовування */
+.words-display-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 16px 0 32px;
+  flex-wrap: wrap;
+  min-height: 140px;
+}
+
+.word-display-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 22px;
+  background: linear-gradient(145deg, #2a1f18 0%, #171520 100%);
+  border: 2px solid rgba(249, 115, 22, 0.45);
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(249, 115, 22, 0.25);
+  font-size: clamp(18px, 4.5vw, 24px);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.5px;
+  animation: wordPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes wordPop {
+  from {
+    transform: scale(0.6) translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Фаза 2: Варіанти слів для вибору */
+.words-recall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin: 16px 0 28px;
+}
+
+.word-choice-btn {
+  min-height: 54px;
+  padding: 12px 14px;
+  background: linear-gradient(145deg, #171b30, #111426);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+  font-size: clamp(14px, 3.5vw, 17px);
+  font-weight: 750;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  user-select: none;
+  transition: transform 0.18s ease,
+              background 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.word-choice-btn:not(.locked):hover {
+  transform: translateY(-2px);
+  border-color: #fb923c;
+  background: linear-gradient(145deg, #242038, #18192d);
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.22);
+}
+
+.word-choice-btn:not(.locked):active {
+  transform: scale(0.97);
+}
+
+.word-choice-btn.locked {
+  cursor: default;
+}
+
+.word-choice-btn.correct {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #34d399;
+  color: #fff;
+  box-shadow: 0 0 22px rgba(16, 185, 129, 0.5);
+  animation: cellPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.word-choice-btn.wrong {
+  background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+  border-color: #fda4af;
+  color: #fff;
+  box-shadow: 0 0 22px rgba(244, 63, 94, 0.55);
+  animation: cellShake 0.45s ease-in-out;
+}
+
+.word-choice-btn.missed {
+  background: rgba(245, 158, 11, 0.2);
+  border: 2px dashed #f59e0b;
+  color: #fbbf24;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
+}
+
+.words-action-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
 /* Планшети */
 
 @media (max-width: 800px) {
